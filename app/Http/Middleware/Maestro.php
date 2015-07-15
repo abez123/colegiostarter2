@@ -48,7 +48,7 @@ class Maestro implements Middleware {
         if ($this->auth->check())
         {
             $admin = 0;
-            if($this->auth->user()->admin==2)
+            if($this->auth->user()->admin=='maestro')
             {
                 $admin=2;
             }

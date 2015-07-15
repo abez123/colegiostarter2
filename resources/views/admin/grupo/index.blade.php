@@ -23,6 +23,7 @@
             <th>Grupo</th>
             <th>Etapa Escolar</th>
             <th>Año Escolar</th>
+            <th>Numero de Alumnos</th>
             <th>{{{ trans("admin/admin.action") }}}</th>
         </tr>
         </thead>
@@ -42,7 +43,7 @@
 
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ URL::to('admin/grupo/data/'.((isset($grupo))?$grupo->id:0)) }}",
+                "sAjaxSource": "{{ URL::to('admin/grupo/data/'.((isset($depa))?$depa->id:0)) }}",
                 "fnDrawCallback": function (oSettings) {
                     $(".iframe").colorbox({
                         iframe: true,

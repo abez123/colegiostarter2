@@ -8,7 +8,7 @@
 @section('main')
     <div class="page-header">
         <h3>
-           Maestros
+            Maestros
             <div class="pull-right">
                 <div class="pull-right">
                     <a href="{{{ URL::to('admin/maestros/create') }}}"
@@ -23,11 +23,11 @@
     <table id="table" class="table table-striped table-hover">
         <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Actvio</th>
-            <th>Creado</th>
-            <th>Acciones</th>
+            <th>{{{ trans("admin/users.name") }}}</th>
+            <th>Tipo de Usuario</th>
+               <th>{{{ trans("admin/users.email") }}}</th>
+            <th>{{{ trans("admin/admin.created_at") }}}</th>
+            <th>{{{ trans("admin/admin.action") }}}</th>
         </tr>
         </thead>
         <tbody></tbody>

@@ -40,3 +40,8 @@ if (Request::is('padre/*'))
 {
     require __DIR__.'/padre_routes.php';
 }
+
+if (Request::is('alumno/*'))
+{
+    require __DIR__.'/alumno_routes.php';
+}

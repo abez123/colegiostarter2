@@ -36,7 +36,7 @@ class Registrar implements RegistrarContract {
 			'email' => $data['email'],
 			'password' => bcrypt($data['password']),
 			'confirmed' => 0,
-            'admin' => $data['admin'],
+
 			'confirmation_code' => md5(microtime() . env('APP_KEY')),
 		]);
 	}

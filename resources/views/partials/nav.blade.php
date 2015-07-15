@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Laravel</a>
+            <a class="navbar-brand" href="#">Colegio Iberoamericano</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -37,13 +37,19 @@
                                     class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             @if(Auth::check())
-                                @if(Auth::user()->admin==1)
+                                @if(Auth::user()->admin=='admin')
                                     <li>
                                         <a href="{!! URL::to('admin/dashboard') !!}"><i class="fa fa-tachometer"></i> Dashboard</a>
+                                    </li>
+                              
+                                 @elseif(Auth::user()->admin=='maestro')
+                                    <li>
+                                        <a href="{!! URL::to('maestro/dashboard2') !!}"><i class="fa fa-tachometer"></i> Panel Profesor</a>
                                     </li>
                                 @endif
                                 <li role="presentation" class="divider"></li>
                             @endif
+
                             <li>
                                 <a href="{!! URL::to('auth/logout') !!}"><i class="fa fa-sign-out"></i> Logout</a>
                             </li>

@@ -3,18 +3,28 @@ Route::group(['prefix' => 'maestro', 'middleware' => 'auth'], function() {
     Route::pattern('id', '[0-9]+');
     Route::pattern('id2', '[0-9]+');
 
-    #Admin Dashboard
-    Route::get('tdashboard', 'Maestro\DashboardController@index');
+    #Maestro Dashboard
+    Route::get('dashboard2', 'Maestro\DashboardController@index');
 
-#Exams
-    Route::get('exams/', 'Maestro\ExamController@index');
-    Route::get('exams/create', 'Maestro\ExamController@getCreate');
-    Route::post('exams/create', 'Maestro\ExamController@postCreate');
-    Route::get('exams/{id}/edit', 'Maestro\ExamController@getEdit');
-    Route::post('exams/{id}/edit', 'Maestro\ExamController@postEdit');
-    Route::get('exams/{id}/delete', 'Maestro\ExamController@getDelete');
-    Route::post('exams/{id}/delete', 'Maestro\ExamController@postDelete');
-    Route::get('exams/data', 'Maestro\ExamController@data');
+#exam
+    Route::get('exam/', 'Maestro\ExamController@index');
+    Route::get('exam/create', 'Maestro\ExamController@getCreate');
+    Route::post('exam/create', 'Maestro\ExamController@postCreate');
+    Route::get('exam/{id}/edit', 'Maestro\ExamController@getEdit');
+    Route::post('exam/{id}/edit', 'Maestro\ExamController@postEdit');
+    Route::get('exam/{id}/delete', 'Maestro\ExamController@getDelete');
+    Route::post('exam/{id}/delete', 'Maestro\ExamController@postDelete');
+    Route::get('exam/data', 'Maestro\ExamController@data');
+
+    #exam
+    Route::get('grade/', 'Maestro\GradeController@index');
+    Route::get('grade/create', 'Maestro\GradeController@getCreate');
+    Route::post('grade/create', 'Maestro\GradeController@postCreate');
+    Route::get('grade/{id}/edit', 'Maestro\GradeController@getEdit');
+    Route::post('grade/{id}/edit', 'Maestro\GradeController@postEdit');
+    Route::get('grade/{id}/delete', 'Maestro\GradeController@getDelete');
+    Route::post('grade/{id}/delete', 'Maestro\GradeController@postDelete');
+    Route::get('grade/data', 'Maestro\GradeController@data');
 
     #Notas
     Route::get('notas/', 'Maestro\NotaController@index');

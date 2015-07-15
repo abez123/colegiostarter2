@@ -2,10 +2,17 @@
 
 use App\Http\Controllers\AdminController;
 use App\User;
+
+use App\Padre;
+use App\Madre;
+use App\Grupo;
+use App\Departamento;
 use App\Http\Requests\Admin\UserRequest;
 use App\Http\Requests\Admin\UserEditRequest;
 use App\Http\Requests\Admin\DeleteRequest;
+use Illuminate\Support\Facades\DB;
 use yajra\Datatables\Datatables;
+use Illuminate\Database\Eloquent\Model;
 
 
 
@@ -22,13 +29,41 @@ class UserController extends AdminController {
         return view('admin.users.index');
     }
 
+   public function itemsForAlumno($id) {
+
+      
+        $alumno=Grupo::find($id);
+        // Show the page
+        return view('admin.users.index', compact('alumno'));
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
     public function getCreate() {
-        return view('admin.users.create_edit');
+
+          {
+              $grupos=  \DB::table('departamentos')
+        ->join('grupos', function($join)
+        {
+            $join->on('departamentos.id', '=', 'grupos.departamento_id')
+                 ;
+        })
+        ->get();
+
+        $grupo= "";
+
+
+                $padres = User::where('admin','=','padre')->get();
+              $padre= "";
+              $madres = User::where('admin','=','madre')->get();
+              $madre= "";
+        // Show the page
+
+
+    }
+        return view('admin.users.create_edit', compact('grupos','grupo','padres','padre','madres','madre'));
     }
 
     /**
@@ -40,10 +75,24 @@ class UserController extends AdminController {
 
         $user = new User ();
         $user -> name = $request->name;
-		$user -> username = $request->username;
+        $user -> apellidop = $request->apellidop;
+        $user -> apellidom = $request->apellidom;
+        $user -> sexo = $request->sexo;
+        $user -> direccion = $request->direccion;
+        $user -> colonia = $request->colonia;
+        $user -> cp = $request->cp;
+        $user -> telefonos = $request->telefonos;
+        $user -> fecha_nacimiento = $request->fecha_nacimiento;
+        $user -> historial_medico = $request->historial_medico;
+        $user -> padre_id = $request->padre_id;
+        $user -> madre_id = $request->madre_id;
+        $user -> grupo_id = $request->grupo_id;
+        $user -> username = $request->username;
         $user -> email = $request->email;
+        $user -> admin = $request->admin;
         $user -> password = bcrypt($request->password);
         $user -> confirmation_code = str_random(32);
+        $user -> remember_token = csrf_token();
         $user -> confirmed = $request->confirmed;
         $user -> save();
     }
@@ -57,7 +106,21 @@ class UserController extends AdminController {
     public function getEdit($id) {
 
         $user = User::find($id);
-        return view('admin.users.create_edit', compact('user'));
+         $grupos=  \DB::table('departamentos')
+        ->join('grupos', function($join)
+        {
+            $join->on('departamentos.id', '=', 'grupos.departamento_id')
+                 ;
+        })
+        ->get();
+
+        $grupo= "";
+          $padres = User::where('admin','=','padre')->get();
+              $padre= "";
+              $madres = User::where('admin','=','madre')->get();
+              $madre= "";
+       
+        return view('admin.users.create_edit', compact('user','grupos','grupo','padres','padre','madres','madre'));
     }
 
     /**
@@ -113,9 +176,15 @@ class UserController extends AdminController {
      *
      * @return Datatables JSON
      */
-    public function data()
+    public function data($alumnoid=0)
     {
-        $users = User::select(array('users.id','users.name','users.email','users.confirmed', 'users.created_at'));
+ $condition =(intval($alumnoid)==0)?">":"=";
+
+
+        $users = User::join('grupos', 'grupos.id', '=', 'users.grupo_id')
+            ->where('users.grupo_id',$condition,$alumnoid)
+
+      ->select(array('users.id','users.name','users.apellidop','users.apellidom','users.email','users.confirmed', 'users.created_at'));
 
         return Datatables::of($users)
             ->edit_column('confirmed', '@if ($confirmed=="1") <span class="glyphicon glyphicon-ok"></span> @else <span class=\'glyphicon glyphicon-remove\'></span> @endif')

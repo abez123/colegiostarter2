@@ -48,7 +48,7 @@ class Admin implements Middleware {
         if ($this->auth->check())
         {
             $admin = 0;
-            if($this->auth->user()->admin==1)
+            if($this->auth->user()->admin=='admin')
             {
                 $admin=1;
             }

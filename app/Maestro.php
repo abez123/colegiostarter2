@@ -6,35 +6,30 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class Maestro extends Model implements AuthenticatableContract, CanResetPasswordContract {
+class Maestro extends Model implements AuthenticatableContract, CanResetPasswordContract
+{
 
     use Authenticatable, CanResetPassword;
-
-    protected $table = 'maestros';
-
+protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [ 'nombre', 'apellido_p','apellido_m','username', 'sexo','direcion','colonia','cp','telefonos','profesion','mision','cursos','email', 'password', 'confirmed' ,'admin','confirmation_code' ];
+    protected $fillable = ['name', 'username', 'email', 'password', 'confirmed', 'confirmation_code'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = [ 'password', 'remember_token' ,'confirmation_code'  ];
+    protected $hidden = ['password', 'remember_token', 'admin','confirmation_code'];
 
 
-    public function exams()
+    public function articles()
     {
-        return $this->hasMany('App\Exam');
+        return $this->hasMany('App\Article');
     }
 
-    public function Clase()
-    {
-        return $this->belongsTo('App\Clase');
-    }
 
 }

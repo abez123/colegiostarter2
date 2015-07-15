@@ -28,11 +28,12 @@ class GrupoController extends AdminController {
      *
      * @return View
      */
-    public function itemsForDepartamento($id) {
+   public function itemsForDepartamento($id) {
 
-        $departamento = Departamento::find($id);
+      
+        $depa=Departamento::find($id);
         // Show the page
-        return view('admin.grupo.index', compact('departamento'));
+        return view('admin.grupo.index', compact('depa'));
     }
 
     /**
@@ -136,21 +137,17 @@ class GrupoController extends AdminController {
      * @param $id
      * @return Response
      */
-  /*  public function getDepartamento($id)
+    public function getDepartamentoGrupo($id,$departamento_id)
     {
-        $grupo = Grupo::find($id);
-        $departamentos = Grupo::where('departamentos_id',$grupo->departamento_id)->get();
-        foreach($departamentos as $item)
-        {
-            $item -> departamento;
-            $item -> save();
-        }
-        $grupo -> departamento;
-        $grupo -> save();
-        // Show the page
-        return redirect( (($deprtamento)?'/admin/grupo':'/admin/grupo/'.$grupo.'/itemsforgruo'));
- }
- */
+        $grupo = Departamento::find($id);
+        $grupodepas = Grupo::find($departamento_id);
+
+
+        //Show the page
+        return redirect((($grupo) ? '/admin/grupo' : '/admin/grupo/' . $grupodepas . '/itemsfordepa'));
+      //  return view('admin.grupo.showgrupo', compact('grupo','grupodepas'));
+    }
+
     public function getDepartamento()
     {
         //	//crear notas para alumnos y padres
@@ -171,16 +168,16 @@ class GrupoController extends AdminController {
      *
      * @return Datatables JSON
      */
-    public function data() {
-
+    public function data($depaid=0) {
+        $condition =(intval($depaid)==0)?">":"=";
         $grupodepa = Grupo::join('departamentos', 'departamentos.id', '=', 'grupos.departamento_id')
-
-            ->select(array('grupos.id', 'grupos.name','departamentos.descripcion as depaname','grupos.schoolyear'))
+            ->where('grupos.departamento_id',$condition,$depaid)
+            ->select(array('grupos.id', 'grupos.name','departamentos.descripcion as depaname','grupos.schoolyear','grupos.id as user_count'))
             ->orderBy('grupos.position', 'ASC');
 
         return Datatables::of($grupodepa)
-            -> edit_column('position', '{{ DB::table(\'grupos\')->where(\'departamento_id\', \'=\', $id)->count() }}</a>')
-            ->add_column('actions', '<a href="{{{ URL::to(\'admin/grupo/\' . $id . \'/alumno\' ) }}}" class="btn btn-info btn-sm" ><span class="glyphicon glyphicon-open"></span> Alumnos</a>
+           ->edit_column('user_count', '<a class="btn btn-primary btn-sm" >{{ DB::table(\'users\')->where(\'grupo_id\', \'=\', $id)->count() }}</a>')
+            ->add_column('actions', '<a href="{{{ URL::to(\'admin/users/\' . $id . \'/itemsforalumno\' ) }}}" class="btn btn-info btn-sm" ><span class="glyphicon glyphicon-open"></span> Alumnos</a>
                     <a href="{{{ URL::to(\'admin/grupo/\' . $id . \'/edit\' ) }}}" class="btn btn-success btn-sm iframe" ><span class="glyphicon glyphicon-pencil"></span>  {{ trans("admin/modal.edit") }}</a>
                     <a href="{{{ URL::to(\'admin/grupo/\' . $id . \'/delete\' ) }}}" class="btn btn-sm btn-danger iframe"><span class="glyphicon glyphicon-trash"></span> {{ trans("admin/modal.delete") }}</a>
                     <input type="hidden" name="row" value="{{$id}}" id="row">')

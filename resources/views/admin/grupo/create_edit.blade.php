@@ -12,8 +12,7 @@
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab-general">
 			<div class="tab-pane active" id="tab-general">
-				<div
-					class="form-group {{{ $errors->has('departamento_id') ? 'error' : '' }}}">
+				<div  class="form-group {{{ $errors->has('departamento_id') ? 'error' : '' }}}">
 					<div class="col-md-12">
 						<label class="control-label" for="departamento_id">Etapa Escolar</label> <select
 							style="width: 100%" name="departamento_id" id="departamento_id"
@@ -29,8 +28,7 @@
 					</div>
 				</div>
 
-				<div
-					class="form-group {{{ $errors->has('name') ? 'has-error' : '' }}}">
+				<div class="form-group {{{ $errors->has('name') ? 'has-error' : '' }}}">
 					<div class="col-md-12">
 						<label class="control-label" for="grupo">Nombre de Grupo</label> <input
 							class="form-control" type="text" name="name" id="name"
@@ -38,8 +36,7 @@
 						{!!$errors->first('name', '<span class="help-block">:message </span>')!!}
 					</div>
 				</div>
-                <div
-                        class="form-group {{{ $errors->has('name') ? 'has-error' : '' }}}">
+                <div class="form-group {{{ $errors->has('name') ? 'has-error' : '' }}}">
                     <div class="col-md-12">
                         <label class="control-label" for="grupo"> Año Escolar</label> <select
                                 class="form-control" type="text" name="schoolyear" id="schoolyear">

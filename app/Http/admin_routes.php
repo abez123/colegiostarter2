@@ -108,8 +108,27 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('grupo/{id}/delete', 'Admin\GrupoController@getDelete');
     Route::post('grupo/{id}/delete', 'Admin\GrupoController@postDelete');
     Route::get('grupo/{id}/itemsfordepa', 'Admin\GrupoController@itemsForDepartamento');
+    Route::get('grupo/{id}/{id2}/grupodepa', 'Admin\GrupoController@getDepartamentoGrupo');
     Route::get('grupo/data/{id}', 'Admin\GrupoController@data');
     Route::get('grupo/reorder', 'Admin\GrupoController@getReorder');
+    
+
+
+    #Clase
+    Route::get('clases', 'Admin\ClaseController@index');
+    Route::get('clases/create', 'Admin\ClaseController@getCreate');
+    Route::post('clases/create', 'Admin\ClaseController@postCreate');
+    Route::get('clases/{id}/edit', 'Admin\ClaseController@getEdit');
+    Route::post('clases/{id}/edit', 'Admin\ClaseController@postEdit');
+    Route::get('clases/{id}/delete', 'Admin\ClaseController@getDelete');
+    Route::post('clases/{id}/delete', 'Admin\ClaseController@postDelete');
+    Route::get('clases/{id}/itemsforhorario', 'Admin\ClaseController@itemsForHorario');
+    Route::get('clases/data/{id}', 'Admin\ClaseController@data');
+    Route::get('clases/data2/{id}', 'Admin\ClaseController@data2');
+    Route::get('clases/reorder', 'Admin\ClaseController@getReorder');
+    Route::get('clases/horario/{id}', 'Admin\ClaseController@data2');
+
+
 
     #Materia
     Route::get('materia', 'Admin\MateriaController@index');
@@ -131,7 +150,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::post('users/{id}/edit', 'Admin\UserController@postEdit');
     Route::get('users/{id}/delete', 'Admin\UserController@getDelete');
     Route::post('users/{id}/delete', 'Admin\UserController@postDelete');
-    Route::get('users/data', 'Admin\UserController@data');
+    Route::get('users/data/{id}', 'Admin\UserController@data');
+    Route::get('users/{id}/itemsforalumno', 'Admin\UserController@itemsForAlumno');
 
     #Maestros
     Route::get('maestros/', 'Admin\MaestroController@index');
@@ -142,5 +162,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('maestros/{id}/delete', 'Admin\MaestroController@getDelete');
     Route::post('maestros/{id}/delete', 'Admin\MaestroController@postDelete');
     Route::get('maestros/data', 'Admin\MaestroController@data');
+
+     #Padres
+    Route::get('padres/', 'Admin\PadreController@index');
+    Route::get('padres/create', 'Admin\PadreController@getCreate');
+    Route::post('padres/create', 'Admin\PadreController@postCreate');
+    Route::get('padres/{id}/edit', 'Admin\PadreController@getEdit');
+    Route::post('padres/{id}/edit', 'Admin\PadreController@postEdit');
+    Route::get('padres/{id}/delete', 'Admin\PadreController@getDelete');
+    Route::post('padres/{id}/delete', 'Admin\PadreController@postDelete');
+    Route::get('padres/data', 'Admin\PadreController@data');
+
+    #Madres
+    Route::get('madres/', 'Admin\MadreController@index');
+    Route::get('madres/create', 'Admin\MadreController@getCreate');
+    Route::post('madres/create', 'Admin\MadreController@postCreate');
+    Route::get('madres/{id}/edit', 'Admin\MadreController@getEdit');
+    Route::post('madres/{id}/edit', 'Admin\MadreController@postEdit');
+    Route::get('madres/{id}/delete', 'Admin\MadreController@getDelete');
+    Route::post('madres/{id}/delete', 'Admin\MadreController@postDelete');
+    Route::get('madres/data', 'Admin\MadreController@data');
 
 });

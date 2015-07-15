@@ -9,6 +9,74 @@
 	<input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 	<div class="tab-content">
 		<div class="tab-pane active" id="tab-general">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="admin">Tipo de Usuario</label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="admin" id="admin">
+                            <option value="alumno" {{{ ((isset($user) && $user->admin == 'alumno')? '
+								selected="selected"' : '') }}}>Alumno</option>
+
+
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+		<div class="col-md-12">
+		<div class="form-group {{{ $errors->has('grupo_id') ? 'error' : '' }}}">
+					
+						<label class="col-md-2 control-label" for="grupo_id">Grupo</label>
+						<div class="col-md-8"> <select
+							style="width: 100%" class="js-example-basic-single" name="grupo_id" id="grupo_id"
+							class="form-control"> @foreach($grupos as $item)
+							<option value="{{$item->id}}"
+								@if(!empty($grupos))
+                                        @if($item->id==$grupo)
+								            selected="selected"
+								        @endif
+								@endif > {{$item->name}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+				</div>
+            <div class="col-md-12">
+                <div class="form-group {{{ $errors->has('padre_id') ? 'error' : '' }}}">
+
+                    <label class="col-md-2 control-label" for="padre_id">Padre</label>
+                    <div class="col-md-8"> <select
+                                style="width: 100%" class="js-example-basic-single" name="padre_id" id="padre_id"
+                                class="form-control"> @foreach($padres as $itempadre)
+                                <option value="{{$itempadre->id}}"
+                                @if(!empty($padres))
+                                    @if($itempadre->id==$padre)
+                                        selected="selected"
+                                            @endif
+                                        @endif >{{$itempadre->name}}   {{$itempadre->apellidop}} {{$itempadre->apellidom}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group {{{ $errors->has('madre_id') ? 'error' : '' }}}">
+
+                    <label class="col-md-2 control-label" for="madre_id">Madre</label>
+                    <div class="col-md-8"> <select
+                                style="width: 100%" class="js-example-basic-single" name="madre_id" id="madre_id"
+                                class="form-control"> @foreach($madres as $itemmadre)
+                                <option value="{{$itemmadre->id}}"
+                                @if(!empty($madres))
+                                    @if($itemmadre->id==$madre)
+                                        selected="selected"
+                                            @endif
+                                        @endif >{{$itemmadre->name}}   {{$itemmadre->apellidop}}  {{$itemmadre->apellidom}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
 			<div class="col-md-12">
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="name">{{
@@ -21,6 +89,120 @@
 					</div>
 				</div>
 			</div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="apellidop">Apellido Paterno</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Apellido Paterno" type="text"
+                               name="apellidop" id="apellidop"
+                               value="{{{ Input::old('apellidop', isset($user) ? $user->apellidop : null) }}}">
+                    </div>
+                </div>
+            </div><div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="apellidom">Apellido Materno</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Apellido Materno" type="text"
+                               name="apellidom" id="apellidom"
+                               value="{{{ Input::old('apellidom', isset($user) ? $user->apellidom : null) }}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+
+                    <label class="col-md-2 control-label" for="sexo"> Sexo</label>
+                    <div class="col-md-6">
+                        <select
+                                class="form-control" type="text" name="sexo" id="sexo">
+                            <option value="F"{{{ ((isset($user) && $user->sexo == 'F')? '
+								selected="selected"' : '') }}}>Femenino</option>
+                            <option value="M"{{{ ((isset($user) && $user->sexo == 'M')? '
+								selected="selected"' : '') }}}>Masculino</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="direccion">Domicilio</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Domicilio" type="text"
+                               name="direccion" id="direccion"
+                               value="{{{ Input::old('direccion', isset($user) ? $user->direccion : null) }}}">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="colonia">Colonia</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Colonia" type="text"
+                               name="colonia" id="colonia"
+                               value="{{{ Input::old('colonia', isset($user) ? $user->colonia : null) }}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="cp">Codigo Postal</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Codigo Postal" type="text"
+                               name="cp" id="cp"
+                               value="{{{ Input::old('cp', isset($user) ? $user->cp : null) }}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="telefonos">Telefono</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Telefono" type="text"
+                               name="telefonos" id="telefonos"
+                               value="{{{ Input::old('telefonos', isset($user) ? $user->telefonos : null) }}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Fecha de Nacimiento" type="date"
+                               name="fecha_nacimiento" id="fecha_nacimiento"
+                               value="{{{ Input::old('fecha_nacimiento', isset($user) ? $user->fecha_nacimiento : null) }}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="historial_medico">Historial Medico</label>
+                    <div class="col-md-10">
+                        <input class="form-control" tabindex="1"
+                               placeholder="Historial Medico" type="text"
+                               name="historial_medico" id="historial_medico"
+                               value="{{{ Input::old('historial_medico', isset($user) ? $user->historial_medico : null) }}}">
+                    </div>
+                </div>
+            </div>
+
+
+            
+           
             @if(!isset($user))
             <div class="col-md-12">
                 <div class="form-group {{{ $errors->has('username') ? 'has-error' : '' }}}">
@@ -78,7 +260,7 @@
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div class="form-">
+				<div class="form-group">
 					<label class="col-md-2 control-label" for="confirm">{{
 						trans('admin/users.activate_user') }}</label>
 					<div class="col-md-6">
@@ -119,7 +301,12 @@
 @stop @section('scripts')
 <script type="text/javascript">
 	$(function() {
-		$("#roles").select2()
+		$("#roles").select2();
+		 $(".js-example-basic-single").select2();
 	});
+		
+
+
+
 </script>
 @stop

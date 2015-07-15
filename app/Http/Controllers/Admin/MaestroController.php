@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AdminController;
+use App\User;
 use App\Maestro;
-use App\Http\Requests\Admin\MaestroRequest;
-use App\Http\Requests\Admin\MaestroEditRequest;
+use App\Http\Requests\Admin\UserRequest;
+use App\Http\Requests\Admin\UserEditRequest;
 use App\Http\Requests\Admin\DeleteRequest;
 use yajra\Datatables\Datatables;
 
@@ -36,86 +37,88 @@ class MaestroController extends AdminController {
      *
      * @return Response
      */
-    public function postCreate(MaestroRequest $request) {
+    public function postCreate(UserRequest $request) {
 
-        $maestro = new Maestro ();
-        $maestro -> nombre = $request->nombre;
-        $maestro -> apellido_p = $request->apellido_p;
-        $maestro -> apellido_m = $request->apellido_m;
-        $maestro -> sexo = $request->sexo;
-        $maestro -> direccion = $request->direccion;
-        $maestro -> colonia = $request->colonia;
-        $maestro -> cp = $request->cp;
-        $maestro -> telefonos = $request->telefonos;
-        $maestro -> profesion = $request->profesion;
-        $maestro -> mision = $request->mision;
-        $maestro -> cursos = $request->cursos;
-        $maestro -> username = $request->username;
-        $maestro -> email = $request->email;
-        $maestro -> password = bcrypt($request->password);
-        $maestro -> confirmation_code = str_random(32);
-        $maestro -> confirmed = $request->confirmed;
-        $maestro -> save();
+        $user = new User ();
+        $user -> name = $request->name;
+        $user -> apellidop = $request->apellidop;
+        $user -> apellidom = $request->apellidom;
+        $user -> sexo = $request->sexo;
+        $user -> direccion = $request->direccion;
+        $user -> colonia = $request->colonia;
+        $user -> cp = $request->cp;
+        $user -> telefonos = $request->telefonos;
+        $user-> profesion = $request->profesion;
+        $user-> mision = $request->mision;
+        $user-> cursos = $request->cursos;
+        $user -> username = $request->username;
+        $user -> email = $request->email;
+        $user -> admin = $request->admin;
+        $user -> password = bcrypt($request->password);
+        $user -> remember_token = csrf_token();
+        $user -> confirmation_code = str_random(32);
+        $user -> confirmed = $request->confirmed;
+        $user -> save();
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $maestro
+     * @param $user
      * @return Response
      */
     public function getEdit($id) {
 
-        $maestro = Maestro::find($id);
-        return view('admin.maestros.create_edit', compact('maestro'));
+        $user = User::find($id);
+        return view('admin.maestros.create_edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param $maestro
+     * @param $user
      * @return Response
      */
-    public function postEdit(MaestroEditRequest $request, $id) {
+    public function postEdit(UserEditRequest $request, $id) {
 
-        $maestro = Maestro::find($id);
-        $maestro -> nombre = $request->nombre;
-        $maestro -> confirmed = $request->confirmed;
+        $user = User::find($id);
+        $user -> name = $request->name;
+        $user -> confirmed = $request->confirmed;
 
         $password = $request->password;
         $passwordConfirmation = $request->password_confirmation;
 
         if (!empty($password)) {
             if ($password === $passwordConfirmation) {
-                $maestro -> password = bcrypt($password);
+                $user -> password = bcrypt($password);
             }
         }
-        $maestro -> save();
+        $user -> save();
     }
     /**
      * Remove the specified resource from storage.
      *
-     * @param $maestro
+     * @param $user
      * @return Response
      */
 
     public function getDelete($id)
     {
-        $maestro = Maestro::find($id);
+        $user = User::find($id);
         // Show the page
-        return view('admin.maestros.delete', compact('maestro'));
+        return view('admin.maestros.delete', compact('user'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $maestro
+     * @param $user
      * @return Response
      */
     public function postDelete(DeleteRequest $request,$id)
     {
-        $maestro= Maestro::find($id);
-        $maestro->delete();
+        $user= User::find($id);
+        $user->delete();
     }
 
     /**
@@ -125,9 +128,9 @@ class MaestroController extends AdminController {
      */
     public function data()
     {
-        $maestros = Maestro::select(array('maestros.id','maestros.nombre','maestros.email','maestros.confirmed', 'maestros.created_at'));
+        $users = User::where('admin','=','maestro')->select(array('users.id','users.name','users.admin','users.email','users.confirmed'));
 
-        return Datatables::of($maestros)
+        return Datatables::of($users)
             ->edit_column('confirmed', '@if ($confirmed=="1") <span class="glyphicon glyphicon-ok"></span> @else <span class=\'glyphicon glyphicon-remove\'></span> @endif')
             ->add_column('actions', '@if ($id!="1")<a href="{{{ URL::to(\'admin/maestros/\' . $id . \'/edit\' ) }}}" class="btn btn-success btn-sm iframe" ><span class="glyphicon glyphicon-pencil"></span>  {{ trans("admin/modal.edit") }}</a>
                     <a href="{{{ URL::to(\'admin/maestros/\' . $id . \'/delete\' ) }}}" class="btn btn-sm btn-danger iframe"><span class="glyphicon glyphicon-trash"></span> {{ trans("admin/modal.delete") }}</a>

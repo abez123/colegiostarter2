@@ -83,7 +83,7 @@ class MateriaController extends AdminController {
         $departamentos = Departamento::all();
         $departamento = $materia->departamento_id;
         $materia -> name;
-        $materia ->clave;
+        $materia -> clave;
         $materia -> plan;
         
 

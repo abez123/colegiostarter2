@@ -4,24 +4,159 @@
 			trans('admin/modal.general') }}}</a></li>
     </ul>
     <form class="form-horizontal" method="post"
-          action="@if (isset($maestro)){{ URL::to('admin/maestros/' . $maestro->id . '/edit') }}@endif"
+          action="@if (isset($user)){{ URL::to('admin/maestros/' . $user->id . '/edit') }}@endif"
           autocomplete="off">
         <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
         <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="nombre">{{
+                        <label class="col-md-2 control-label" for="admin">Tipo de Usuario</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="admin" id="admin">
+                                <option value="maestro" {{{ ((isset($user) && $user->admin == 'maestro')? '
+								selected="selected"' : '') }}}>Maestro(a)</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="name">{{
 						trans('admin/users.name') }}</label>
                         <div class="col-md-10">
                             <input class="form-control" tabindex="1"
                                    placeholder="{{ trans('admin/users.name') }}" type="text"
-                                   name="nombre" id="nombre"
-                                   value="{{{ Input::old('nombre', isset($maestro) ? $maestro->nombre : null) }}}">
+                                   name="name" id="name"
+                                   value="{{{ Input::old('name', isset($user) ? $user->name : null) }}}">
                         </div>
                     </div>
                 </div>
-                @if(!isset($maestro))
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="apellidop">Apellido Paterno</label>
+                        <div class="col-md-10">
+                            <input class="form-control" tabindex="1"
+                                   placeholder="Apellido Paterno" type="text"
+                                   name="apellidop" id="apellidop"
+                                   value="{{{ Input::old('apellidop', isset($user) ? $user->apellidop : null) }}}">
+                        </div>
+                    </div>
+                </div><div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="apellidom">Apellido Materno</label>
+                        <div class="col-md-10">
+                            <input class="form-control" tabindex="1"
+                                   placeholder="Apellido Materno" type="text"
+                                   name="apellidom" id="apellidom"
+                                   value="{{{ Input::old('apellidom', isset($user) ? $user->apellidom : null) }}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <label class="col-md-2 control-label" for="sexo"> Sexo</label>
+                        <div class="col-md-6">
+                            <select
+                                    class="form-control" type="text" name="sexo" id="sexo">
+                                <option value="F"{{{ ((isset($user) && $user->sexo == 'F')? '
+								selected="selected"' : '') }}}>Femenino</option>
+                                <option value="M"{{{ ((isset($user) && $user->sexo == 'M')? '
+								selected="selected"' : '') }}}>Masculino</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="direccion">Domicilio</label>
+                        <div class="col-md-10">
+                            <input class="form-control" tabindex="1"
+                                   placeholder="Domicilio" type="text"
+                                   name="direccion" id="direccion"
+                                   value="{{{ Input::old('direccion', isset($user) ? $user->direccion : null) }}}">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="colonia">Colonia</label>
+                        <div class="col-md-10">
+                            <input class="form-control" tabindex="1"
+                                   placeholder="Colonia" type="text"
+                                   name="colonia" id="colonia"
+                                   value="{{{ Input::old('colonia', isset($user) ? $user->colonia : null) }}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="cp">Codigo Postal</label>
+                        <div class="col-md-10">
+                            <input class="form-control" tabindex="1"
+                                   placeholder="Codigo Postal" type="text"
+                                   name="cp" id="cp"
+                                   value="{{{ Input::old('cp', isset($user) ? $user->cp : null) }}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="telefonos">Telefono</label>
+                        <div class="col-md-10">
+                            <input class="form-control" tabindex="1"
+                                   placeholder="Telefono" type="text"
+                                   name="telefonos" id="telefonos"
+                                   value="{{{ Input::old('telefonos', isset($user) ? $user->telefonos : null) }}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="profesion">Profesion</label>
+                        <div class="col-md-10">
+                            <input class="form-control" tabindex="1"
+                                   placeholder="Profesion" type="text"
+                                   name="profesion" id="profesion"
+                                   value="{{{ Input::old('profesion', isset($user) ? $user->profesion : null) }}}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="mision">Mision</label>
+                        <div class="col-md-10">
+                           <textarea class="form-control" tabindex="1"
+                                   placeholder="Mision" type="text"
+                                   name="mision" id="mision"
+                                   value="{{{ Input::old('mision', isset($user) ? $user->mision : null) }}}"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="cursos">Cursos</label>
+                        <div class="col-md-10">
+                           <textarea class="form-control" tabindex="1"
+                                   placeholder="Cursos" type="text"
+                                   name="cursos" id="cursos"
+                                   value="{{{ Input::old('cursos', isset($user) ? $user->cursos : null) }}}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                @if(!isset($user))
                     <div class="col-md-12">
                         <div class="form-group {{{ $errors->has('username') ? 'has-error' : '' }}}">
                             <label class="col-md-2 control-label" for="username">{{
@@ -30,7 +165,7 @@
                                 <input class="form-control" type="username" tabindex="4"
                                        placeholder="{{ trans('admin/users.username') }}" name="username"
                                        id="username"
-                                       value="{{{ Input::old('username', isset($maestro) ? $maestro->username : null) }}}" />
+                                       value="{{{ Input::old('username', isset($user) ? $user->username : null) }}}" />
                                 {!! $errors->first('username', '<label class="control-label"
                                                                        for="username">:message</label>')!!}
                             </div>
@@ -44,7 +179,7 @@
                                 <input class="form-control" type="email" tabindex="4"
                                        placeholder="{{ trans('admin/users.email') }}" name="email"
                                        id="email"
-                                       value="{{{ Input::old('email', isset($maestro) ? $maestro->email : null) }}}" />
+                                       value="{{{ Input::old('email', isset($user) ? $user->email : null) }}}" />
                                 {!! $errors->first('email', '<label class="control-label"
                                                                     for="email">:message</label>')!!}
                             </div>
@@ -78,15 +213,15 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="form-">
+                    <div class="form-group">
                         <label class="col-md-2 control-label" for="confirm">{{
 						trans('admin/users.activate_user') }}</label>
                         <div class="col-md-6">
                             <select class="form-control" name="confirmed" id="confirmed">
-                                <option value="1" {{{ ((isset($maestro) && $maestro->confirmed == 1)? '
+                                <option value="1" {{{ ((isset($user) && $user->confirmed == 1)? '
 								selected="selected"' : '') }}}>{{{ trans('admin/users.yes')
 								}}}</option>
-                                <option value="0" {{{ ((isset($maestro) && $maestro->confirmed == 0) ?
+                                <option value="0" {{{ ((isset($user) && $user->confirmed == 0) ?
 								' selected="selected"' : '') }}}>{{{ trans('admin/users.no')
 								}}}</option>
                             </select>
@@ -107,7 +242,7 @@
                 </button>
                 <button type="submit" class="btn btn-sm btn-success">
                     <span class="glyphicon glyphicon-ok-circle"></span>
-                    @if	(isset($maestro))
+                    @if	(isset($user))
                         {{ trans("admin/modal.edit") }}
                     @else
                         {{trans("admin/modal.create") }}
@@ -123,4 +258,3 @@
         });
     </script>
 @stop
-

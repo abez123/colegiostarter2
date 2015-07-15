@@ -24,6 +24,8 @@
         <thead>
         <tr>
             <th>{{{ trans("admin/users.name") }}}</th>
+            <th>Appelido Paterno</th>
+            <th>Apellido Materno</th>
             <th>{{{ trans("admin/users.email") }}}</th>
             <th>{{{ trans("admin/users.active_user") }}}</th>
             <th>{{{ trans("admin/admin.created_at") }}}</th>
@@ -45,7 +47,7 @@
                 "sPaginationType": "bootstrap",
                 "bProcessing": true,
                 "bServerSide": true,
-                "sAjaxSource": "{{ URL::to('admin/users/data/') }}",
+                "sAjaxSource": "{{ URL::to('admin/users/data/'.((isset($alumno))?$alumno->id:0)) }}",
                 "fnDrawCallback": function (oSettings) {
                     $(".iframe").colorbox({
                         iframe: true,
